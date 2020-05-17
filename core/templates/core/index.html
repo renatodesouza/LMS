@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+    <script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Firetek</title>
+</head>
+<body class="fundo">
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="fire navbar-brand" href="{% url 'core:index' %}"><span>Firetek</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'core:index' %}"><b>A Firetek</b><span class="caret"></span></a>
+                        <ul class="dropdown-list row" >
+
+                            <li><a class=""href="#">Nossa História</a></li>   
+                            <li><a href="#">Quem Somos</a></li>
+                            <li><a href="#">Fotos</a></li>
+                            <li><a href="#">Parceiros</a></li>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Unidades</a></li>
+                            <li><a href="#">Objetivos</a></li>
+                            <li><a href="#">Premios e Reconhecimentos</a></li>
+                            
+                        </ul> 
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="cursos"><b>Graduação</b><span class="caret"></span></a>
+                        <ul class="dropdown-content ">
+                            <div class="row">
+                                <li class="linha-vertical col-sm-3">
+                                    <h4 class=" text-center margin-top-150 _title-3">Graduação</h4>
+                                    <p class="text-center"><a href="#">Conheça nossos Cursos & <br> Matricule-se já!</p>
+                                </li></a>
+                                <div class="coll-sm-12"style="margin:0px 0px;">
+                                    {% for curso in curso_list %}
+                                        <a href="{% url 'core:curso' curso.id %}" class="box text-center"><b>{{ curso.nome }}</b>
+                                            <p>{{ curso.destaque }}</p>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    <li><a href="#"><b>Pós e MBA</b></a></li>
+                    <li><a href="#"><b>Intervenções</b></a></li>
+                    <li><a href="#"><b>Eventos</b></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a  onclick="document.getElementById('id01').style.display='block'"href="#"><span class="">Login</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+
+    <div id="id01" class=" container modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <form class="modal-content animate" action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="imgcontainer">
+                <img src="{% static 'img/av2.png'%}" style="width:150px; height: 100px;" alt="Avatar" class="avatar">
+            </div>
+            <div class="container-fluid">
+                <label for="uname"><b>Usuario</b></label>
+                <input type="text" placeholder="Enter Username" id="username" name="username" required>
+
+                <label for="psw"><b>Senha</b></label>
+                <input type="password" placeholder="Enter Password" id="password" name="password" required>
+
+                <button type="submit">Login</button>
+                <br>
+                <span class="psw">Esqueceu sua <a href="#"> senha?</a></span>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Lembrar   
+                </label>
+            </div>
+            <div>
+                <button type="submit" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <!---Espaço do Carrousel-->
+    <div id="myCarousel" class=" margin-top-50 carousel slide" data-ride="carousel" margin-top-50px>
+        <!-- indicadores  -->
+        <!-- Slides imagens do carrousel -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="{% static 'img/touchman.jpg' %}" alt="touchman">
+                <div class="carousel-caption">
+                    <h3 class="fire">Desafio</h3>
+                    <p>Eae Vai encarar?</p>
+                </div>
+            </div>
+    
+            <div class="item">
+                <img src="{% static 'img/inovacao.jpg'%}" alt="nebulosa">
+                <div class="carousel-caption">
+                    <h3 class="fire">Criação</h3>
+                    <p>Crie a Nova ERA</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{% static 'img/campus1.jpg'%}" class="img-fluid d-block"  alt="Image">
+                <div class="carousel-caption">
+                    <h3 class="fire">Conheça Nosso  Campus</h3>
+                    <p>Rodapé</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{% static 'img/ddgb.jpg'%}" alt="ddgb">
+                <div class="carousel-caption">
+                    <h3 class="fire">EVOLUÇÃO</h3>
+                    <p>Você tem que deixar o passado para trás</p>
+                </div>
+            </div>
+        </div>
+         <!-- Esquerda Direita -->
+        <div class="row">
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+        </div>
+        <div class="row">
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Proximo</span>
+            </a>
+        </div>
+    </div>
+    <div class="container text-center">
+        <h3 class="_title-2">O <b>Sucesso</b> começa, quando a <b>Qualidade</b> é <b>Prioridade</b></h3><br>
+        <hr>
+        <div class="row">
+            {% for curso in cursoImg1 %}
+            <div class="col-sm-4">
+                <div class="card">
+                    <img src="{{ curso.imagem2.thumbnail.url }}" class="img-card"  alt="mat">
+                    <div class="legenda">
+                        <h4 class=" section_title section_title-shadow">Matricule-se</h4>
+                        <h6 class="">O Mundo pode estar esperando pela sua Genialidade</h6>     
+                        <p>Explore um mundo Novo</p>
+                        <p>Ultrapasse seus limites</p>
+                        <button>Matricule-se</button>
+                    </div>  
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div><br>
+<section class="container text-center">
+    <div class="row">
+        <div class="linha-vertical2 col-md-4">
+            <h2 class="_title-c text-center section_title-shadow ">Conheça Nossos Cursos</h2>
+
+            <p class="quebra text-descricao">
+                Considerada uma das melhores faculdades com foco em tecnologia do País, a Faculdade Impacta oferece cursos
+                de Graduação, Pós-Graduação e MBA e cursos técnicos. Conheça quais são as áreas de conhecimento que a
+                Impacta aborda e saiba um pouco mais sobre cada curso:
+            </p>
+
+        </div>
+        <div class="col-md-8">
+            {% for curso in cursoImg %}
+            <div class="flip">
+                <div class="front">
+                    <img class="img-thumbnail" src="{{ curso.imagem2.thumbnail.url }}" alt="{{ curso.nome }}" style="width:300px;height:200px">
+                </div>
+                <div class="back text-center">
+                    <a href="{% url 'core:curso' curso.id %}"><h2><b>{{ curso.nome }}</b></h2>
+                    <p><em>{{ curso.destaque }}<br></em></p></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="container  margin-bottom-50 ">
+    <div class="content">
+        <h2 class=" _title-c text-center section_title-shadow">Prêmios e Reconhecimentos</h2>
+        <p class=" quebra text-descricao text-center">A Faculdade Impacta é altamente reconhecida por sua atuação no mercado da
+            educação, o que comprova o compromisso da Instituição com o ensino de qualidade e a dedicação do Grupo
+            Impacta em transformar a sociedade através da tecnologia.
+            Desta maneira, ao longo dos anos a Faculdade Impacta tem recebido prêmios e reconhecimentos que são
+            resultados do trabalho contínuo de professores e funcionários e da determinação de seus alunos.
+        </p>
+        <div class="row">
+            <div class="text-center">
+                <div class="col-sm-3"><img src="{% static 'img/enade-ADM.png' %}" alt="[]"
+                        title=""></div>
+                <div class="col-sm-3"><img src="{% static 'img/enade-ADS.png' %}" alt="[]"
+                        title=""></div>
+                <div class="col-sm-3"><img src="{% static 'img/enade-RD.png' %}" alt="[]"
+                        title=""></div>
+                <div class="col-sm-3"><img src="{% static 'img/enade-SI.png' %}" alt="[]"
+                        title=""></div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center padding-bottom-50 padding-lr-15">
+        <a href="#" title="Vestibular 2018" class="btn-inscrevase">Saiba mais</a>
+    </div>
+</section>
+
+<footer class="footer container-fluid">
+    <section class="container">
+        <div class="clear">
+            <div class="ribbon"></div>
+        </div>
+        <h2><a class="fire"href="#">core</a></h2>
+        <div class="row">
+            <section class="circle col-md-4">
+                <h3 class="_title-4  margin-bottom-25">Siga-nos</h3>
+                    <ul class="inline">
+                        <li><a class="" href="" title="FanPage Facebook" target="_blank">
+                                    <i style="font-size:24px" class="fire fa">&#xf082;</i></i></a></li>
+                        <li><a class="icon-bg" href="#" title="Instagram" target="_blank"><i
+                            class=" fire fa fa-instagram" style="font-size:24px"></i></a></li>
+                        <li><a class="icon-bg" href="#"
+                                title="Linkedin" target="_blank"><i class="fire fa fa-linkedin" style="font-size:24px"></i></a></li>
+                        <li><a class="icon-bg" href="#" title="Twitter" target="_blank"><i
+                                    class="fire fa fa-twitter"style="font-size:24px"></i></a></li>
+                        <li><a class="icon-bg" href=" title=Youtube" target="_blank"><i
+                                    class="fire fa fa-youtube-play"style="font-size:24px"></i></a></li>
+                    </ul>
+                <p class="margin-top-50"></p>
+                <p class="text-uppercase small">Nome</p>
+                <p class="small">Todos os direitos reservados.</p>
+            </section>
+            <section class="circle col-md-4">
+                <h3 class="_title-4 margin-bottom-25">Contatos</h3>
+                <ul class="text-descricao">
+                    <li><b>Comercial:</b></li>
+                    <li>Tel: (00) 0000-0000</li>
+                    <li><b>Secretaria</b></li>
+                    <li>Tel: (00) 0000-0000</li><br>
+                    <li>Unidade - Master II </li>
+                    <li>Avenida Itaquera, 1521 - Itaquera</li>
+                    <li>São Paulo / SP</li>
+                </ul>
+            </section>
+            <section class="circle col-md-4">
+                <h3 class="_title-4  margin-bottom-25">Atendimento</h3>
+                <ul class="text-descricao">
+                    <li><b>Secretaria da Graduação</b></li>
+                    <li>De segunda a sexta - das 9h às 21h</li>
+                    <li>Sábado - das 9h às 13h</li><br>
+                    <li><b>Secretaria de Pós-Graduação</b></li>
+                    <li>De segunda a sexta - das 13h às 21h</li>
+                    <li>Sábado - das 9h às 13h</li><br>
+                    <li><b>Ouvidoria</b></li>
+                    <li>De segunda a sexta - das 9h às 18h</li>
+                    <li>Telefone: (11) 5593-5370</li>
+                </ul>                    
+            </section>
+        </div>
+    </section>
+</footer>
+
+</body>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</html>

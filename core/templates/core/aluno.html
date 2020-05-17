@@ -1,0 +1,126 @@
+{% extends 'core/base_area.html' %}
+
+{% block content_aluno_titulo %}
+<title>Firetek atividades</title>
+{% endblock %}
+
+{% block content_nome_aluno %}
+<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">  {{ aluno_list.usuario.first_name }}</span>
+    <span class="caret"></span></button>
+{% endblock %}
+
+{% block content_contato_imagen_aluno %}
+<div class="imgcontainer">
+    <img src="{{ aluno_list.imagem.thumbnail.url }}" style="width:165px;height:190px" alt="Avatar" class="avatar">
+</div>
+{% endblock %}
+
+{% block content_lista_menu_esquerdo-aluno %}
+<li><a class="ajax-link" href="{% url 'core:aluno' aluno_list.id %}"><i class="glyphicon glyphicon-home"></i><span>
+        Inicio</span></a></li>
+<li><a class=" dropdown ajax-link" data-toggle="dropdown" href="ui.html">
+    <i class="glyphicon glyphicon-list-alt"></i><span> Secretaria On-line</span></a>
+    <ul class="dropdown-menu">
+        <li><a href="">Notas & Faltas</a></li>
+        <li><a href="">Atividades Complementares</a></li>
+        <li><a href="#">Ouvidoria</a></li>
+        <li><a href="">Contato dos Professores</a></li>
+    </ul>
+</li>
+{% endblock %}
+
+
+{% block content_munu_disciplina %}
+<li><a class=" dropdown ajax-link" data-toggle="dropdown" href="../uil"><i class="glyphicon glyphicon-list-alt"></i><span>
+        Disciplinas</span></a>
+    <ul class="dropdown-menu">
+        {% for disciplina in disciplinas %}
+        <li><a href="#">{{ disciplina.disciplina.nome }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endblock %}
+
+{% block content_area_contato_aluno %}
+<div id="content" class="col-lg-10 col-sm-10"></div>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Inicio</a></li>
+        </ul>
+    </div>
+    <h1 class="breadcrumb">Area do Aluno | {{ aluno_list.usuario.first_name }}</h1>
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner panel-group">
+              <div class="box-header well panel panel-default">
+                  <h4 class="">
+                    <a class="glyphicon glyphicon-info-sign" data-toggle="collapse" href="#collapse1">Atividades</a>
+                  </h4>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">Panel Body</div>
+                  <div class="panel-footer">Panel Footer</div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well">
+                    <h2><i class="glyphicon glyphicon-info-sign"></i> Novidades</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                        <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well">
+                    <h2><i class="glyphicon glyphicon-envelope"></i> Mensagens</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                        <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content_modal_entregar %}
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <h4 class="modal-title"> {{ aluno_list.nome }} | Entrega atividades</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-inline" action="/action_page.php">
+                <div class="form-group">
+                    <label class="" for="email">Nome</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label class="" for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd">
+                </div>
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

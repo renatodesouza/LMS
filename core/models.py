@@ -71,7 +71,7 @@ class Coordenador(models.Model):
         verbose_name_plural = 'Coordenadores'
 
     def __str__(self):
-        return self.nome
+        return self.usuario.first_name
 
 class Aluno(models.Model):
     celular = models.CharField(max_length=20)
@@ -99,14 +99,15 @@ class Professor(models.Model):
         verbose_name_plural = 'Professores'
 
     def __str__(self):
-        return self.first_name
+        return self.usuario.first_name
 
 class Curso(models.Model):
     nome = models.CharField(max_length=255)
     descricao = models.TextField(max_length=2000, default=None)
     destaque = models.CharField(max_length=255, default=None)
+    mercado_trabalho = models.TextField(max_length=1000)
     coordenador = models.ForeignKey(Coordenador, on_delete=models.CASCADE, default=None)
-    imagem = StdImageField('Imagem', upload_to=get_file_path, variations={'thumbnail': {'width': 480, 'height': 480, 'crop': True}})
+    imagem = StdImageField('Imagem', upload_to=get_file_path, variations={'thumbnail': {'width': 1500, 'height': 500, 'crop': True}})
     imagem2 = StdImageField('Imagem dois', upload_to=get_file_path, variations={'thumbnail': {'width': 480, 'height': 480, 'crop': True}})
     
     class Meta:
@@ -288,7 +289,7 @@ class SolicitacaoMatricula(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.PROTECT)
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT, default=None)
     coordenador = models.ForeignKey(Coordenador, on_delete=models.PROTECT)
-    disciplinaofertada = models.ForeignKey(DisciplinaOfertada, on_delete=models.PROTECT)
+    #disciplinaofertada = models.ForeignKey(DisciplinaOfertada, on_delete=models.PROTECT)
     
     class Meta:
         verbose_name_plural = 'Solicitação de Matricula'
