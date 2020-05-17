@@ -1,0 +1,215 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>FireteK-Atividades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="{% static 'css/bootstrap-slate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/rug-app.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.noty.css' %}" rel='stylesheet' >
+    <link href="{% static 'components/chosen/chosen.min.css' %}" rel='stylesheet'>
+    <link href="{% static 'components/colorbox/example3/colorbox.css' %}" rel='stylesheet'>
+    <link href="{% static 'css/elfinder.min.css' %}" rel='stylesheet'>
+    <link href="{% static 'css/elfinder.theme.css' %}" rel='stylesheet'>
+
+    <script src="{% static 'components/jquery/jquery.min.js' %}"></script>
+</head>
+
+<body>
+    <!-- topbar starts -->
+<div class=" navbar  navbar-fixed-top" role="navigation">
+    <div class=" navbar-inner ">
+        <button type="button" class="navbar-toggle pull-left animated flip">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">{{ professor_list.nome }}</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Perfil</a></li>
+                <li class="divider"></li>
+                <li><a href='#'>Sair</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- topbar fim -->
+<div class=" margin-top-75 ch-container">
+    <div class="row">
+        <!-- left menu starts -->
+        <div class="col-sm-2">
+            <div class="sidebar-nav">
+                <div class="nav-canvas">
+                    <ul class="nav nav-pills nav-stacked main-menu">
+                        <div class="imgcontainer">
+                            <img src="{% static 'img/av2.png' %}" style="width:100%;" alt="Avatar" class="avatar">
+                        </div>
+                        <li class="nav-header">Menu</li>
+                        <li><a class="ajax-link" href="../usr"><i class="glyphicon glyphicon-home"></i><span>
+                                    Inicio</span></a>
+                        </li>
+                        <li><a class=" dropdown ajax-link" data-toggle="dropdown" href="../uil"><i class="glyphicon glyphicon-list-alt"></i><span>
+                                    Secretaria On-line</span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="#">Notas & Faltas</a></li>
+                                <li><a href="#">Atividades Complementares</a></li>
+                                <li><a href="#">Ouvidoria</a></li>
+                                <li><a href="">Contato dos Professores</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="ajax-link" href="../form"><i class="glyphicon glyphicon-edit"></i><span>
+                                    Arquivos </span></a></li>
+                        <li><a class="ajax-link" href="../chart"><i class="glyphicon glyphicon-list-alt"></i><span>
+                                    Financerio On-line</span></a>
+                        </li>
+                        <li><a class="ajax-link" href="../calendario"><i class="glyphicon glyphicon-calendar"></i><span>
+                                    Calendario & Horarios</span></a>
+                        </li>
+                        <li><a class="ajax-link" href="../table"><i class="glyphicon glyphicon-align-justify"></i><span>
+                                    Atividades</span></a></li>
+                        <li><i class="glyphicon glyphicon-font"></i><span>
+                            </span></a>
+                        </li>
+                        <li class="nav-header hidden-md"></li>
+
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span>Cursos</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                {% for curso in cursos %}
+                                <li><a href="#">{{ curso.nome }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+
+                        <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-th"></i><span> menu</span></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-globe"></i><span> menu2</span></a></li>
+                        <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-star"></i><span>
+                                    Icons</span></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-ban-circle"></i><span> menu3</span></a>
+                        </li>
+                        <li><a href=""><i class="glyphicon glyphicon-lock"></i><span> menu4</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- left menu fim -->
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content start -->
+            <h1 class="breadcrumb">Área do Professor</h1>
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Atividades</a></li>
+                </ul>
+            </div>
+            <!--inicio do Dropdown que fica acima da tabela-->
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="control-group">
+                            <label class="control-label" for="selectError2"></label>
+                        <div class="controls">
+                            <select data-placeholder="Selecione uma Disciplina" id="selectError2" data-rel="chosen">
+                                <option value="Primeiro Semestre"></option>
+                                <optgroup label="1º Semestre">
+                                    {% for disciplina in disciplinaOfertadaS1 %}
+                                    <option>{{ disciplina.disciplina.nome }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                                <optgroup label="2º Semestre">
+                                    {% for disciplina in disciplinaOfertadaS2 %}
+                                    <option>{{ disciplina.disciplina.nome }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                                <optgroup label="3º Semestre">
+                                    {% for disciplina in disciplinaOfertadaS3 %}
+                                    <option>{{ disciplina.disciplina.nome }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                                <optgroup label="4º Semestre">
+                                    {% for disciplina in disciplinaOfertadaS4 %}
+                                    <option>{{ disciplina.disciplina.nome }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-user"></i> Tabela de Atividades</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!--Inicio da tabela de alunos-->           
+            <div class="box-content">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data de envio</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aluno in alunos %}
+                        <tr>
+                            <td><a href="{% url 'firetek:alunoList' aluno.id %}">{{ aluno.nome }}</a></td>
+                            <td class="center">2012/01/01</td>
+                            <td class="center">??</td>
+                            <td class="center">
+                                <span class="label-success label label-default">Entregue</span>
+                            </td>
+                            <td class="center">
+                                <a class="btn btn-success" href="https://classroom.google.com/u/1/h">
+                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                    Ver
+                                </a>
+                                <a class="btn btn-info" href="#">
+                                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger" href="#">
+                                    <i class="glyphicon glyphicon-trash icon-white"></i>
+                                    Apagar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</div><!--/.fluid-container-->
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'components/chosen/chosen.jquery.min.js' %}"></script>
+<script src="{% static 'components/colorbox/jquery.colorbox-min.js' %}"></script>
+<script src="{% static 'components/responsive-tables/responsive-tables.js' %}"></script>
+<script src="{% static 'js/jquery.raty.min.js' %}"></script>
+<script src="{% static 'js/jquery.autogrow-textarea.js' %}"></script>
+<script src="{% static 'js/jquery.uploadify-3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.history.js' %}"></script>
+<script src="{% static 'js/rug.js' %}"></script>
+
+</body>
+</html>

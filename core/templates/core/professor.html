@@ -1,0 +1,190 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>FireteK-contato com Professores</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="{% static 'css/bootstrap-slate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/rug-app.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.noty.css' %}" rel='stylesheet' >
+    <link href="{% static 'components/chosen/chosen.min.css' %}" rel='stylesheet'>
+    <link href="{% static 'components/colorbox/example3/colorbox.css' %}" rel='stylesheet'>
+    <link href="{% static 'css/elfinder.min.css' %}" rel='stylesheet'>
+    <link href="{% static 'css/elfinder.theme.css' %}" rel='stylesheet'>
+    <link href="{% static 'css/meu_estilo.css' %}" rel='stylesheet'>
+    <script src="{% static 'components/jquery/jquery.min.js' %}"></script>
+</head>
+
+<body>
+    <!-- topbar starts -->
+    <div class=" navbar  navbar-relative-top" role="navigation">
+        <div class=" navbar-inner ">
+            <button type="button" class="navbar-toggle pull-left animated flip">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="btn-group pull-right">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> Bem vindo {{ professor.nome }}</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Perfil</a></li>
+                    <li class="divider"></li>
+                    <li><a href="../login">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!-- topbar fim -->
+<div class="ch-container">
+    <div class="row">
+        <!--Inicio do menu esquerdo -->
+        <div class="col-sm-2">
+            <div class="sidebar-nav">
+                <div class="nav-canvas">
+                    <ul class="nav nav-pills nav-stacked main-menu">
+                        <div class="imgcontainer">
+                            <img src="{% static 'img/av2.png' %}" style="width:100%;" alt="Avatar" class="avatar">
+                        </div>
+                        <li class="nav-header">Menu</li>
+                        <li><a class="ajax-link" href="../usr"><i class="glyphicon glyphicon-home"></i><span>
+                                    Inicio</span></a>
+                        </li>
+                        <li><a class=" dropdown ajax-link" data-toggle="dropdown" href="../uil"><i class="glyphicon glyphicon-list-alt"></i><span>
+                                    Disciplinas</span></a>
+                            <ul class="dropdown-menu">
+                                {% for diciplina in disciplinas %}
+                                <li><a href="#">{{ diciplina.disciplina.nome }} - {{ diciplina.semestre }}{{ diciplina.turma }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a class="ajax-link" href="../form"><i class="glyphicon glyphicon-edit"></i><span>
+                                     Arquivos </span></a></li>
+                        <li><a class="ajax-link" href="../chart"><i class="glyphicon glyphicon-list-alt"></i><span>
+                                    Financerio On-line</span></a>
+                        </li>
+                        <li><a class="ajax-link" href="../calendario"><i class="glyphicon glyphicon-calendar"></i><span>
+                                    Calendario & Horarios</span></a>
+                        </li>
+                        <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-align-justify"></i><span>
+                                    Atividades</span></a></li>
+                        
+                        <li class="nav-header hidden-md"></li>
+                        <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-th"></i><span> menu</span></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-globe"></i><span> menu2</span></a></li>
+                        <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-star"></i><span>
+                                    Icons</span></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-ban-circle"></i><span> menu3</span></a>
+                        </li>
+                        <li><a href=""><i class="glyphicon glyphicon-lock"></i><span> menu4</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--Fim do menu esquerdo-->
+
+       <!--Segunda barra de titulos (Home - Professor) -->
+        <div id="content" class="col-lg-10 col-sm-10">
+            <div>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Atividades continuas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Fim da barra de titulos (Home - Professor) -->
+
+        <!--Menu dropdown das turmas-->
+        <div class="dropdown col-sm-2">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Disciplinas
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {% for diciplina in disciplinas %}
+                <li><a href="#">{{ diciplina.disciplina.nome }}  {{ diciplina.semestre }}{{ diciplina.turma }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!--Inicio do formulario para cadastro das atividades-->
+        <div class="col-sm-10">
+            <div id="content" class="breadcrumb">
+                <!--Formulario para craição de atividades-->
+                <div>
+                    <form>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Senha</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Senha">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputAddress">Endereço</label>
+                          <input type="text" class="form-control" id="inputAddress" placeholder="Rua dos Bobos, nº 0">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputAddress2">Endereço 2</label>
+                          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartamento, hotel, casa, etc.">
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Cidade</label>
+                            <input type="text" class="form-control" id="inputCity">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputEstado">Estado</label>
+                            <select id="inputEstado" class="form-control">
+                              <option selected>Escolher...</option>
+                              <option>...</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="inputCEP">CEP</label>
+                            <input type="text" class="form-control" id="inputCEP">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                              Clique em mim
+                            </label>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="btn-group pull-right">
+    <h1></h1>
+</div>
+    
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'components/chosen/chosen.jquery.min.js' %}"></script>
+<script src="{% static 'components/colorbox/jquery.colorbox-min.js' %}"></script>
+<script src="{% static 'components/responsive-tables/responsive-tables.js' %}"></script>
+<script src="{% static 'js/jquery.raty.min.js' %}"></script>
+<script src="{% static 'js/jquery.autogrow-textarea.js' %}"></script>
+<script src="{% static 'js/jquery.uploadify-3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.history.js' %}"></script>
+<script src="{% static 'js/rug.js' %}"></script>
+</body>
+</html>

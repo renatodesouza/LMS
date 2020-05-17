@@ -1,0 +1,99 @@
+div.container .row .col
+{
+	margin: 0;
+	padding: 0;
+	background: url(../imagem/blockchain3.jpg) no-repeat;
+	background-size: cover;
+	font-family: sans-serif;
+}
+
+.cadastroBox
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 400px;
+	height: 200px;
+	padding: 80px 40px;
+	box-sizing: border-box;
+	background: rgba(0,0,0,.5);
+}
+
+.cadastroBoxSubmit
+{
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 170px;
+	height: 50px;
+	padding: 0px;
+	box-sizing: border-box;
+	background:none;
+}
+
+h1
+{
+	font-size: 25pt;
+	font-family: Georgia, Times New Roman, Times, serif;
+	margin: 0;
+	padding: 1px;
+	color: #ffffff;
+    text-align: center;
+}
+
+.cadastroBox p
+{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	color: #fff;
+}
+
+.cadastroBox input
+{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.cadastroBox input.submit {
+    width: 50%;
+    margin-bottom: 1%;
+   
+}
+
+.cadastroBox input[type="text"],
+.cadastroBox input[type="password"]
+{
+	border: 10;
+	border-bottom: 1px solid #fff;
+	
+	outline: none;
+	height: 30px;
+	color: #fff;
+	font-size: 16px;
+}
+
+::placeholder
+{
+	color: rgba(255,255,255,.5);
+}
+
+.cadastroBox a {
+    color: #ffff;
+    
+}
+
+.cadastroBox input[type="submit"]
+{
+	border: none;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+	background: #1b1b79;
+	cursor: pointer;
+    border-radius: 20px;
+    
+}

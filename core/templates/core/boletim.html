@@ -1,0 +1,68 @@
+{% extends 'firetek/base_area.html' %}
+
+{% block content_boletim_aluno %}
+<title>Boletim</title>
+{% endblock %}
+
+{% block content_nome_aluno %}
+<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{ user_list }}</span>
+    <span class="caret"></span></button>
+{% endblock %}
+   
+{% block content_boletim_imagen_aluno %}
+<div class="imgcontainer">
+    <img src="{{ user_list.image.url }}" style="width:165px;height:190px" alt="Avatar" class="avatar">
+</div>
+{% endblock %}
+
+
+{% block content_lista_menu_esquerdo-boletim-aluno %}
+<li><a class="ajax-link" href="{% url 'firetek:usuario' user_list.id %}"><i class="glyphicon glyphicon-home"></i><span>
+        Inicio</span></a></li>
+<li><a class=" dropdown ajax-link" data-toggle="dropdown" href="ui.html">
+    <i class="glyphicon glyphicon-list-alt"></i><span> Secretaria On-line</span></a>
+    <ul class="dropdown-menu">
+        <li><a href="{% url 'firetek:boletim' user_list.id %}">Notas & Faltas</a></li>
+        <li><a href="{% url 'firetek:alunoList' user_list.id %}">Atividades Complementares</a></li>
+        <li><a href="#">{{usuario.senha}}</a></li>
+        <li><a href="{% url 'firetek:contato' user_list.id %}">Contato dos Professores</a></li>
+    </ul>
+</li>
+{% endblock %}
+
+{% block content_area_aluno %}
+<div id="content" class="col-lg-10 col-sm-10"></div>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Inicio</a></li>
+        </ul>
+    </div>
+    <h1 class="breadcrumb">Boletim | {{ user_list }}</h1>
+</div>
+{% endblock %}
+
+{% block content_tabela_aluno %}
+<div class="col-lg-10 col-sm-10">   
+    <table class="table table-striped table-bordered table-hover bootstrap-datatable datatable responsive">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Curso</th>
+                <th>Turma <i></i></th>
+                <th>Semestre</th>
+                <th>Situacao Matricula</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in aluno %} 
+            <tr>
+                <td>{{ aluno.email }}</td>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.nome_user.first_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

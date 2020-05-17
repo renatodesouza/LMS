@@ -1,0 +1,330 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/estilo.css'%}">
+    <link rel="stylesheet" href="{% static 'css/meu_estilo.css'%}">
+    <link rel="stylesheet" href="{% static 'css/cursos.css'%}">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>{{ curso_list.nome }}</title>
+</head>
+<body>
+    <header class="jumbotron-new">
+        <nav class="container-fluid navbar navbar-inverse navbar-fixed-top ">
+            <div class="container-fluid">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class=" navbar-brand" href="{% url 'core:index' %}"><span class="fire">Firetek</span> <span class="spc">- Graduação</span></a>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li class=" active dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Cursos</b><span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu ">
+                                    {% for curso in cursos %}
+                                    <li><a href="{% url 'core:curso' curso.id %}">{{ curso.nome }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li><a href="#"><b>Vestibular</b></a></li>
+                            <li><a href="#"><b>A core</b></a></li>
+                            <li><a href="#"><b>Pós e MBA</b></a></li>
+                            <li><a href="#"><b>Técnicos</b></a></li>
+                            <li><a href="#"><b>Contato</b></a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="ins">INSCREVA-SE</span></a></li>
+                            <li><a  onclick="document.getElementById('id01').style.display='block'"href="#"><span class="">Login</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <br>
+    </header>
+<div id="id01" class=" container modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content animate" action="/action_page.php">
+        <div class="imgcontainer">
+            <img src="{% static 'img/av2.png'%}" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container-fluid">
+            <label for="uname"><b>Usuario</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Senha</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <button type="submit">Login</button>
+            <br>
+            <span class="psw">Esqueceu sua <a href="#"> senha?</a></span>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Lembrar
+
+            </label>
+        </div>
+
+        <div>
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+
+        </div>
+    </form>
+</div>
+    <section class="margin-top-25">
+        <div class="fig _title text-center section_title">
+            {% if curso_list.imagem.url %}
+            <img class="img-fig"src="{{ curso_list.imagem.thumbnail.url }}" alt="{{ curso.nome }}">
+            {% else %}
+            <img class="img-fig"src="{{ curso_list.imagem2.thumbnail.url }}" alt="{{ curso.nome }}">
+            {% endif %}
+            <div class="legenda">
+                {% for curso in curso %}
+                <h1 class="_title">{{ curso.nome }}</h1><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-8">
+                    <h3 class="_title-c text-left section_title">O Curso</h3>
+                    <hr class="hr2">
+                    <br>
+                <div class="quebra">
+                    <p>{{ curso_list.descricao | linebreaks }}</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <h3 class="_title-22 "><b>TECNOLOGO</b></h3>
+                </div>
+                <div class="round2">
+                    <p class="desc"><b>Periodo:</b></p>
+                    <h5 class="_title-2 section_title-shadow">Matutino</h5>
+                    <p class="desc"> 08:00 ás 11:40</p>
+                    <h5 class="_title-2 section_title-shadow"><b>Por Apenas:</b></h5>
+                    <p class="section_title section_title-shadow">R$ 0,00</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <h3 class="_title-22 ">Duração: 4 Semestres</h3>
+                </div>
+                <div class="round2">
+                    <p class="desc"><b>Periodo:</b></p>
+                    <h5 class="_title-2 section_title-shadow">Noturno</h5>
+                    <p class="desc"> 19:00 ás 22:40</p>
+                    <h5 class="_title-2 section_title-shadow"><b>Por Apenas:</b></h5>
+                    <p class="section_title section_title-shadow">R$ 788,40</p> 
+                </div>
+            </div>
+    </section>
+    <section class="margin-top-50">
+        <div class="container">
+            <div class="col-md-6">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">1º Semestre</a></li>
+                    <li><a data-toggle="tab" href="#menu1">2º Semestre</a></li>
+                    <li><a data-toggle="tab" href="#menu2">3º Semestre</a></li>
+                    <li><a data-toggle="tab" href="#menu3">4º Semestre</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="_title-2">1º Semestre</th>
+                                    <th class="_title-2">Carga Horaria</th>
+                                </tr>
+                            </thead>
+                             <tbody>
+                                 {% for disciplina in disciplinaofertadaS1 %}
+                                <tr>
+                                    <td>{{ disciplina.disciplina.nome }}</td>
+                                    <td>{{ disciplina.disciplina.carga_horaria }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td>480 horas</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <table class="table  ">
+                            <thead>
+                                <tr>
+                                    <th class="_title-2">2º Semestre</th>
+                                    <th class="_title-2">Carga Horaria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dis in disciplinaofertadaS2 %}
+                                <tr>
+                                    <td>{{ dis.disciplina.nome }}</td>
+                                    <td>{{ dis.disciplina.carga_horaria }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td>520 horas</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="_title-2">3º Semestre</th>
+                                    <th class="_title-2">Carga Horaria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for disciplina in disciplinaofertadaS3 %}
+                                <tr>
+                                    <td>{{ disciplina.disciplina.nome }}</td>
+                                    <td>{{ disciplina.disciplina.carga_horaria }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                   <td>Subtotal</td>
+                                    <td>440 horas</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="_title-2">4º Semestre</th>
+                                    <th class="_title-2">Carga Horaria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for disciplina in disciplinaofertadaS4 %}
+                                <tr>
+                                    <td>{{ disciplina.disciplina.nome }}</td>
+                                    <td>{{ disciplina.disciplina.carga_horaria }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>subtotal</td>
+                                    <td>440 horas</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <section>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3 class="_title-c text-left section_title">Mercado de trabalho</h3>
+                        <hr class="hr3">
+                        <div class="quebra">
+                            <p>{{ curso_list.mercado_trabalho | linebreaks }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <section class="thumbnail"> 
+                            <img  class="img-thumbnail" src="{{ curso_list.imagem2.thumbnail.url }}" alt="{{ curso.nome }}">
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </div> 
+    </section>
+    <br>
+
+<footer class="footer2 container">
+    <section class="">
+        <div class="clear">
+            <div class="ribbon"></div>
+        </div>
+    <h2><a class="fire" href="{% url 'core:index' %}">core</a></h2>
+        <div class="row">
+            <section class="circle col-md-4">
+                <h3 class="_title-3 margin-bottom-25">Siga-nos</h3>
+                <ul class="inline">
+                    <li><a class="" href="" title="FanPage Facebook" target="_blank">
+                            <i style="font-size:24px" class="fire fa">&#xf082;</i></i></a></li>
+                    <li><a class="icon-bg" href="https://www.instagram.com/facimpacta/" title="Instagram" target="_blank"><i
+                                class=" fire fa fa-instagram" style="font-size:24px"></i></a></li>
+                    <li><a class="icon-bg" href="https://www.linkedin.com/edu/faculdade-impacta-tecnologia-161006"
+                            title="Linkedin" target="_blank"><i class="fire fa fa-linkedin" style="font-size:24px"></i></a></li>
+                    <li><a class="icon-bg" href="https://twitter.com/facimpacta" title="Twitter" target="_blank"><i
+                                class="fire fa fa-twitter" style="font-size:24px"></i></a></li>
+                    <li><a class="icon-bg" href=" title=" Youtube" target="_blank"><i class="fire fa fa-youtube-play"
+                                style="font-size:24px"></i></a></li>
+                </ul>
+                <p class="margin-top-50"></p>
+                <p class="text-uppercase small">RUG7UP 2018.</p>
+                <p class="small">Todos os direitos reservados.</p>
+            </section>
+            <section class="circle col-md-4">
+                <h3 class="_title-3  margin-bottom-25">Contatos</h3>
+                <ul class="quebra2">
+                    <li><b>Comercial:</b></li>
+                    <li>Tel: 11 3254-8300</li>
+                    <li><b>Secretaria</b></li>
+                    <li>Tel: 11 5593-5344</li><br>
+                    <li>Unidade - Master II </li>
+                    <li>Avenida Idaguera, 1521 - Itaquera</li>
+                    <li>São Paulo / SP</li>
+                </ul>
+            </section>
+            <section class="circle col-md-4">
+                <h3 class="_title-3 margin-bottom-25">Atendimento</h3>
+                <ul class="quebra2">
+                    <li><b>Secretaria da Graduação</b></li>
+                    <li>De segunda a sexta - das 9h às 21h</li>
+                    <li>Sábado - das 9h às 13h</li><br>
+                    <li><b>Secretaria de Pós-Graduação</b></li>
+                    <li>De segunda a sexta - das 13h às 21h</li>
+                    <li>Sábado - das 9h às 13h</li><br>
+                    <li><b>Ouvidoria</b></li>
+                    <li>De segunda a sexta - das 9h às 18h</li>
+                    <li>Telefone: (11) 5593-5370</li>
+                </ul>
+            </section>
+        </div>
+    </section>
+</footer><br>
+
+    
+</body>
+  <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</html>
+

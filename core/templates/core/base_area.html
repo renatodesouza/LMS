@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    {% block content_aluno_titulo %} {% endblock %}
+    {% block content_boletim_aluno %} {% endblock %}
+    {% block content_boletim_professor %} {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/bootstrap-slate.min.css' %} " rel="stylesheet">
+    <link href="{% static 'css/rug-app.css' % }" rel="stylesheet">
+    <link href="{% static 'css/jquery.noty.css' %}" rel='stylesheet'>
+    <script src="{% static 'components/jquery/jquery.min.js' %}"></script>
+</head>
+
+<body>
+<!-- topbar starts -->
+
+<div class=" navbar  navbar-relative-top" role="navigation">
+    <div class=" navbar-inner ">
+        <button type="button" class="navbar-toggle pull-left animated flip">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    {% block content_nome_aluno %}      {% endblock %}
+                    {% block content_nome_professor %}  {% endblock %}
+                <span></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Perfil</a></li>
+                <li class="divider"></li>
+                <li><a href="login">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- topbar fim -->
+    <div class="container">
+        <div class="row">
+            <!-- left menu starts -->
+            <div class="col-sm-2">
+                <div class="sidebar-nav">
+                    <div class="nav-canvas">
+                        <div class="nav-sm nav nav-stacked"></div>
+                        <ul class="nav nav-pills nav-stacked main-menu">
+                            {% block content_boletim_imagen_aluno %} {% endblock %}
+                            {% block content_contato_imagen_aluno %} {% endblock %}
+                            {% block content_imagen_aluno_p %} {% endblock %}
+                            
+                            {% block content_lista_menu_esquerdo-aluno %} {% endblock %}
+                            {% block content_lista_menu_esquerdo-boletim-aluno %} {% endblock %}
+                            {% block content_lista_menu_esquerdo_professor %} {% endblock %}
+                            <li><a class="ajax-link" href="../form"><i class="glyphicon glyphicon-edit"></i><span>
+                                        Arquivos </span></a></li>
+                            <li><a class="ajax-link" href="../chart"><i class="glyphicon glyphicon-list-alt"></i><span>
+                                        Financerio On-line</span></a>
+                            </li>                    
+                            <li><a class="dropdown ajax-link" data-toggle="dropdown" href=""><i class="glyphicon glyphicon-list-alt"></i><span>
+                                Agenda</span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="">Calendario</a></li>
+                                    <li><a href="">Horarios</a></li>
+                                </ul>
+                            </li>
+                            {% block content_munu_disciplina %} {% endblock %}
+
+                            <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-th"></i><span> menu</span></a></li>
+                            <li><a href=""><i class="glyphicon glyphicon-globe"></i><span> menu3</span></a></li>
+                            <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-star"></i><span>
+                                        Icons</span></a></li>
+                            <li><a href=""><i class="glyphicon glyphicon-ban-circle"></i><span> menu4</span></a>
+                            </li>
+                            <li><a href=""><i class="glyphicon glyphicon-lock"></i><span> menu</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!---Left Menu fim-->
+            <div id="content" class="col-lg-10 col-sm-10">
+                {% block content_area_contato_aluno %} {% endblock %}
+                {% block content_area_aluno %} {% endblock %}
+                {% block content_area_contato_professor %} {% endblock %}
+
+                {% block content_tabela_professor %} {% endblock %}
+                {% block content_tabela_aluno %} {% endblock %}
+                {% block content_tabela_contato_aluno %} {% endblock %}
+                {% block content_modal_entregar %} {% endblock %}
+            </div>
+            <div class="btn-group pull-right">
+                <h1></h1>
+            </div>
+        </div>
+    </div>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'components/chosen/chosen.jquery.min.js' %}"></script>
+<script src="{% static 'components/colorbox/jquery.colorbox-min.js' %}"></script>
+<script src="{% static 'components/moment/moment.js' %}"></script>
+<script src="{% static 'components/fullcalendar/dist/fullcalendar.js' %}"></script>
+<script src="{% static 'components/responsive-tables/responsive-tables.js' %}"></script>
+<script src="{% static 'js/jquery.raty.min.js' %}"></script>
+<script src="{% static 'js/jquery.autogrow-textarea.js' %}"></script>
+<script src="{% static 'js/jquery.uploadify-3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.history.js' %}"></script>
+<script src="{% static 'js/rug.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+/*Meu estilo css*/
+._title-0 {
+ 
+    color: rgb(209, 209, 209);
+    letter-spacing: 1px;
+    font-weight: 350;
+    font-size:14px;
+    margin-bottom: 15px;
+    font-family: Montserrat,
+        sans-serif;
+}
+
+._title-1 {
+ 
+    color: rgb(170, 169, 169);
+    letter-spacing: 1px;
+    font-weight: 450;
+    font-size: 22px;
+    margin-bottom: 15px;
+    font-family:  'Arial Narrow', Arial, sans-serif;
+}
+
+._title-22 {
+
+    color: rgb(252, 93, 19);
+    letter-spacing: 1px;
+    font-weight: 350;
+    font-size:14px;
+    margin-bottom: 15px;
+    font-family: Montserrat,
+        sans-serif;
+}
+
+.round2 {
+    border: 2px solid rgb(226, 66, 17);
+    border-radius: 8px;
+    text-align: center;
+    padding: 0px;
+}
+
+.disfocar-img {
+    filter: blur(3px)
+}
+
+.desc1{
+    color: rgb(33, 44, 199);
+    letter-spacing: 0.05em;
+    font-weight: 350;
+    font:14px arial;
+    
+}
+
+.dropbtnR {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdownR {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-contentR {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-contentR a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-contentR a:hover {background-color: #f1f1f1}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-contentR {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtnR {
+    background-color: #3e8e41;
+  }

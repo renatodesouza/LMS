@@ -18,14 +18,14 @@ class CustomUsuarioAdmin(UserAdmin):
         ('Permissões',              {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permission')}),
         ('Datas importantes',       {'fields': ('last_login', 'date_joined')}),
     )
-    list_display = ('first_name', 'last_name', 'email', 'dt_expiracao', 'is_staff')
+    list_display = ('id', 'first_name', 'last_name', 'email', 'dt_expiracao', 'is_staff')
 
     def usuario(self, instance):
         return f'{instance.usuario.get_full_name}'
 
-    def get_queryset(self, request):
-        qs = super(CustomUsuarioAdmin, self).get_queryset(request)
-        return qs.filter(email=request.user)
+    # def get_queryset(self, request):
+    #     qs = super(CustomUsuarioAdmin, self).get_queryset(request)
+    #     return qs.filter(email=request.user)
 
 @admin.register(Coordenador)
 class CoordenadorAdmin(admin.ModelAdmin):
@@ -39,6 +39,7 @@ class CoordenadorAdmin(admin.ModelAdmin):
     def usuario(self, instance):
         return f'{instance.usuario.first_name.get_full_name}'
 
+    
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -46,7 +47,7 @@ class AlunoAdmin(admin.ModelAdmin):
         ('Contato',                     {'fields':('celular',)}),
     ]
 
-    list_display = ('usuario', 'celular', 'ra', 'usuario', 'imagem')
+    list_display = ('id', 'usuario', 'celular', 'ra', 'usuario', 'imagem')
 
     def usuario(self, instance):
         return f'{instance.usuario.get_full_name}'
@@ -77,7 +78,7 @@ class TurmaAdmin(admin.ModelAdmin):
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
     fieldsets = [
-    ('Informações do Curso',            {'fields':('nome', 'destaque', 'descricao')}),
+    ('Informações do Curso',            {'fields':('nome', 'destaque', 'descricao', 'mercado_trabalho')}),
     ('Coordenador responsavel',         {'fields':['coordenador']}),
     ('Midia',                           {'fields':('imagem', 'imagem2')}),
     ]
@@ -86,7 +87,7 @@ class CursoAdmin(admin.ModelAdmin):
     search_fields = ['nome']
 
     #Adiciona os campos como colunas
-    list_display = ('nome', 'destaque', 'descricao', 'coordenador', 'imagem', 'imagem2')
+    list_display = ('nome', 'destaque', 'descricao', 'mercado_trabalho', 'coordenador', 'imagem', 'imagem2')
 
     #inlines = [TurmaInline]
 
@@ -183,20 +184,16 @@ class MensagemAdmin(admin.ModelAdmin):
 @admin.register(SolicitacaoMatricula)
 class SolicitacaoMatriculaAdmin(admin.ModelAdmin):
     fieldsets = [
+        ('Curso',                           {'fields':['curso']}),
         ('Coordenador',                     {'fields':['coordenador']}),
         ('Aluno',                           {'fields':['aluno']}),
-        ('Curso & Disciplina',              {'fields':['curso', 'disciplinaofertada']}),
         ('Data',                            {'fields':['dt_solicitacao']}),
         ('Situação',                        {'fields':['status']}),
-        
-        
-        
-        
     ]
 
     search_fields = ['dt_solicitacao']
 
-    list_display = ('dt_solicitacao', 'status', 'aluno', 'curso', 'disciplinaofertada', 'coordenador')
+    list_display = ('dt_solicitacao', 'status', 'aluno', 'curso', 'coordenador')
 
 
 
