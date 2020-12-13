@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, TemplateView, DetailView
-from core.models import Curso, DisciplinaOfertada, Aluno
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
+from core.models import Curso, DisciplinaOfertada,\
+                Aluno, Professor, Coordenador, EntregaAtividade, SolicitacaoMatricula, MyUserAdmin
+                
+from .forms import EntregaAtividadeForm
+
 
 
 class IndexView(ListView):
@@ -30,24 +37,109 @@ class CursoDetailView(DetailView):
         context = super(CursoDetailView, self).get_context_data(**kwargs)
         context['cursos'] = Curso.objects.all()
         context['disciplinaofertadaS1'] = DisciplinaOfertada.objects.filter(curso=self.nome.id).filter(semestre=1)
+        context['disciplinaofertadaS2'] = DisciplinaOfertada.objects.filter(curso=self.nome.id).filter(semestre=2)
+        context['disciplinaofertadaS3'] = DisciplinaOfertada.objects.filter(curso=self.nome.id).filter(semestre=3)
+        context['disciplinaofertadaS4'] = DisciplinaOfertada.objects.filter(curso=self.nome.id).filter(semestre=4)
 
         return context
 
 class AlunoDetailView(DetailView):
-    model = Aluno
+    model = MyUserAdmin
     context_object_name = 'aluno_list'
     template_name = 'core/aluno.html'
 
     def get_queryset(self):
-        self.nome = get_object_or_404(Aluno, pk=self.kwargs['pk'])
-        return Aluno.objects.filter(id=self.nome.id)
+        self.user = get_object_or_404(MyUserAdmin, pk=self.kwargs['pk'])
+        return MyUserAdmin.objects.filter(id__exact=self.user.id)
 
     def get_context_data(self, **kwargs):
         context = super(AlunoDetailView, self).get_context_data(**kwargs)
-        #context['disciplinas'] = DisciplinaOfertada.objects.filter(solicitacaomatricula__aluno__id=self.nome.id)
-        #context['disciplinas'] = DisciplinaOfertada.objects.filter(curso=self.nome.id)
-
+        context['aluno'] = Aluno.objects.get(usuario__email__exact=self.user)
+        #context['atividades'] = EntregaAtividade.objects.filter(aluno__usuario__email__exact=self.user)
+        #context['atividades'] = EntregaAtividade.objects.filter(atividade_vinculada__disciplina_ofertada__semestre__exact=1)
+        
+        context['atividades1'] = EntregaAtividade.objects.filter(atividade_vinculada__atividade_vinculada__exact="AC1").filter(atividade_vinculada__disciplina_ofertada__semestre__exact=1)
+        context['atividades2'] = EntregaAtividade.objects.filter(atividade_vinculada__atividade_vinculada__exact="AC2").filter(atividade_vinculada__disciplina_ofertada__semestre__exact=1)
+        
+        context['disciplinas'] = DisciplinaOfertada.objects.filter(semestre=1)
+        #context['disciplinas'] = DisciplinaOfertada.objects.filter(aluno__usuario__email__exact=self.user)
+        #context['notas'] = DisciplinaOfertada.objects.filter(aluno=self.nome)
+        
         return context
+    
+class BoletimAluno(DetailView):
+    model = MyUserAdmin
+    context_object_name = 'aluno_list'
+    template_name = 'core/boletim.html'
+    
+    def get_queryset(self):
+        self.user = get_object_or_404(MyUserAdmin, pk=self.kwargs['pk'])
+        return MyUserAdmin.objects.filter(id__exact=self.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(BoletimAluno, self).get_context_data(**kwargs)
+        context['aluno'] = Aluno.objects.get(usuario__email__exact=self.user)
+        context['matricula'] = SolicitacaoMatricula.objects.get(aluno__usuario__email__exact=self.user)
+        #context['curso'] = SolicitacaoMatricula.objects.get(aluno__usuario_email__exact=self.user)
+        
+        return context
+    
+    
+class ProfessorDetailview(DetailView):
+    model = MyUserAdmin
+    context_object_name = 'professor_list'
+    template_name = 'core/professor.html'
+    
+    def get_queryset(self):
+        self.user = get_object_or_404(MyUserAdmin, pk=self.kwargs['pk'])
+        return MyUserAdmin.objects.filter(id__exact=self.user.id)
+    
+class CoordenadorDetailView(DetailView):
+    model = MyUserAdmin
+    context_object_name = 'coordenador_list'
+    template_name = 'core/coordenador.html'
+    
+    def get_queryset(self):
+        self.user = get_object_or_404(MyUserAdmin, pk=self.kwargs['pk'])
+        print('Saida: ', self.user.id)
+        return MyUserAdmin.objects.filter(id__exact=self.user.id)
+    
+    def get_context_data(self, **kwargs):
+        context = super(CoordenadorDetailView, self).get_context_data(**kwargs)
+        context['coordenador'] = Coordenador.objects.get()
+        
+        return context
+    
 
 class UsuarioView(TemplateView):
     template_name = 'core/usuario.html'
+    
+
+def upload(request):
+    if request.method == "POST":
+        form = EntregaAtividadeForm(request.POST, request.FILES)
+        if form.is_valid():    
+            form.save()
+            return render(request, 'core/aluno.html', {'msg':'Arquivo enviado com sucesso. '})
+    else:
+        form = EntregaAtividadeForm()
+    return render(request, 'core/aluno.html', {'msg':'Arquivo não enviado.'})
+    
+def my_login(request):
+    
+    username = request.POST['username']
+    password = request.POST['password']
+    
+    user = authenticate(request, username=username, password=password)
+    
+    return verifica_user(request, user)
+    
+
+def verifica_user(request, user):
+    if user.is_superuser:
+        login(request, user)
+        return redirect('coordenador')
+    elif user.is_staff:
+        login(request, user)
+        return redirect('aluno')
+    return render(request, 'core/index.html')

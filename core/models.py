@@ -4,6 +4,7 @@ from django.db import models
 from stdimage import StdImageField, JPEGField
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 
+
 def get_file_path(_instance, filename):
     ext = filename.split('.')[-1]
     filename = f'{uuid.uuid4()}.{ext}'
@@ -83,6 +84,9 @@ class Aluno(models.Model):
     class Meta:
         verbose_name = 'Aluno'
         verbose_name_plural = 'Alunos'
+        
+        permissions = [('aluno_access', 'alunos_change')]
+        
 
     def __str__(self):
         return self.usuario.first_name
@@ -162,6 +166,11 @@ class Disciplina(models.Model):
         return self.nome
 
 class DisciplinaOfertada(models.Model):
+    turma = models.ForeignKey(Turma, on_delete=models.PROTECT)
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.PROTECT)
+    professor = models.ForeignKey(Professor, on_delete=models.PROTECT)
+    coordenador = models.ForeignKey(Coordenador, on_delete=models.PROTECT)
+    curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
     dt_inicio = models.DateField()
     dt_fim = models.DateField()
     ano = models.IntegerField()
@@ -170,11 +179,7 @@ class DisciplinaOfertada(models.Model):
     recursos = models.TextField(max_length=255)
     criterio_avaliacao = models.TextField(max_length=1000)
     plano_aula = models.TextField(max_length=1000)
-    turma = models.ForeignKey(Turma, on_delete=models.PROTECT)
-    disciplina = models.ForeignKey(Disciplina, on_delete=models.PROTECT)
-    professor = models.ForeignKey(Professor, on_delete=models.PROTECT)
-    coordenador = models.ForeignKey(Coordenador, on_delete=models.PROTECT)
-    curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
+    
 
     class Meta:
         unique_together = ('curso', 'disciplina', 'turma', 'ano', 'semestre')
@@ -204,14 +209,37 @@ class AtividadeVinculada(models.Model):
     FECHADA = 'FC'
     ENCERRADA = 'EC'
     PRORROGADA = 'PR'
+    
+    AC1 = 'AC1'
+    AC2 = 'AC2'
+    AC3 = 'AC3'
+    AC4 = 'AC4'
+    AC5 = 'AC5'
+    AC6 = 'AC6'
+    AC7 = 'AC7'
+    AC8 = 'AC8'
+    AC9 = 'AC9'
+    AC10 = 'AC10'
 
     escolha_status = [(DISPONIBILIZADA, 'Disponibilizada'),
                     (ABERTA, 'Aberta'),
                     (FECHADA, 'Fechada'),
                     (ENCERRADA, 'Encerrada'),
                     (PRORROGADA, 'Prorrogada'),]
+    
+    escolha_atividade = [(AC1, 'AC1'),
+                         (AC2, 'AC2'),
+                         (AC3, 'AC3'),
+                         (AC4, 'AC4'),
+                         (AC5, 'AC5'),
+                         (AC6, 'AC6'),
+                         (AC7, 'AC7'),
+                         (AC8,  'AC8'),
+                         (AC9, 'AC9'),
+                         (AC10, 'AC10')]
 
     status = models.CharField(max_length=5, choices=escolha_status)
+    atividade_vinculada = models.CharField('Atividade Complementar', max_length=4, choices=escolha_atividade, default=AC1)
     rotulo = models.CharField(max_length=255)
     dt_inicio = models.DateField('Data Inicio', default=date(year=1900, month=1, day=1))
     dt_fim = models.DateField('Data Fim', default=date(year=1900, month=1, day=1))
