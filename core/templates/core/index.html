@@ -65,7 +65,7 @@
                     <!--VERIFICA SE É UM SUPER USUARIO, SE FOR HABILITA UM LINK PARA SUPER USUARIO-->
 
                     {% if user.is_authenticated and user.is_superuser %}
-                    <li><a class="fire navbar-brand" href="{% url 'core:coordenador' user.id %}"><b>Bem vindo {{ user.first_name }} {{ user.last_name }} {{ user.id }}</b></a></li>
+                    <li><a class="fire navbar-brand" href="{% url 'core:coordenador' user.id %}"><b>Bem vindo {{ user.first_name }} </b></a></li>
                     {% endif %}
 
                     <!--VERIFICA SE NÃO É UM SUPER USUARIO, SE NÃO FOR HABILITA UM LINK PARA USUARIO COMUN-->

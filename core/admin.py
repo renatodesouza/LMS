@@ -4,7 +4,7 @@ from .forms import UserCreationForm, UserChangeForm
 
 from .models import MyUserAdmin, Curso, Coordenador, Aluno, Professor, \
     Disciplina, DisciplinaOfertada, Turma, AtividadeVinculada, \
-    Atividade, EntregaAtividade, Mensagem, SolicitacaoMatricula
+    Atividade, EntregaAtividade, Mensagem, SolicitacaoMatricula, Matricula
 
 @admin.register(MyUserAdmin)
 class CustomUsuarioAdmin(UserAdmin):
@@ -200,6 +200,11 @@ class MensagemAdmin(admin.ModelAdmin):
     list_display = ('assunto', 'referencia', 'conteudo', 'status', \
          'dt_envio', 'dt_resposta', 'resposta', 'aluno', 'professor')
 
+class MatriculaAdmin(admin.TabularInline):
+    model = Matricula
+    extra = 1
+
+
 @admin.register(SolicitacaoMatricula)
 class SolicitacaoMatriculaAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -214,5 +219,21 @@ class SolicitacaoMatriculaAdmin(admin.ModelAdmin):
 
     list_display = ('dt_solicitacao', 'status', 'aluno', 'curso', 'coordenador')
 
+    inlines = [MatriculaAdmin]
 
 
+# @admin.register(Matricula)
+# class Matricula(admin.ModelAdmin):
+#     fieldsets = [
+#         ('Solicitacao',             {'fields':['solicitacao']}),
+#         ('Aluno',                   {'fields':['aluno']}),
+#         ('Curso',                   {'fields':['curso']}),
+#         ('Turma',                   {'fields':['turma']}),
+#         ('Status',                  {'fields':['status']}),
+#         ('Data inicio',             {'fields':['dt_inicio']}),
+#         ('Data fim',                {'fields':['dt_fim']}),
+#     ]
+
+#     search_fields = ['dt_solicitacao', 'aluno']
+
+#     list_display = ('dt_inicio', 'dt_fim', 'status', 'aluno', 'curso', 'turma')

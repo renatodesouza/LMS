@@ -4,7 +4,8 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from core.models import Curso, DisciplinaOfertada,\
-                Aluno, Professor, Coordenador, EntregaAtividade, SolicitacaoMatricula, MyUserAdmin
+                Aluno, Professor, Coordenador, EntregaAtividade,\
+                     SolicitacaoMatricula, MyUserAdmin, Mensagem, AtividadeVinculada
                 
 from .forms import EntregaAtividadeForm
 
@@ -61,7 +62,10 @@ class AlunoDetailView(DetailView):
         context['atividades1'] = EntregaAtividade.objects.filter(atividade_vinculada__atividade_vinculada__exact="AC1").filter(atividade_vinculada__disciplina_ofertada__semestre__exact=1)
         context['atividades2'] = EntregaAtividade.objects.filter(atividade_vinculada__atividade_vinculada__exact="AC2").filter(atividade_vinculada__disciplina_ofertada__semestre__exact=1)
         
+        context['atividades3'] = AtividadeVinculada.objects.filter(disciplina_ofertada__turma__turma="A")
+
         context['disciplinas'] = DisciplinaOfertada.objects.filter(semestre=1)
+        context['mensagens'] = Mensagem.objects.filter(aluno__usuario__email__exact=self.user)
         #context['disciplinas'] = DisciplinaOfertada.objects.filter(aluno__usuario__email__exact=self.user)
         #context['notas'] = DisciplinaOfertada.objects.filter(aluno=self.nome)
         
