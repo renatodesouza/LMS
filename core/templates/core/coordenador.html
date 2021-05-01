@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>core-Aluno</title>
+    <title>Secretaria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/bootstrap-slate.min.css' %} " rel="stylesheet">
     <link href="{% static 'css/rug-app.css' % }" rel="stylesheet">
@@ -24,13 +24,13 @@
             </button>
             <div class="btn-group pull-right">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">Bem vindo {{ aluno_list.nome }}</span>
+                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">Bem vindo {{ user.first_name }}</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#">Perfil</a></li>
                     <li class="divider"></li>
-                    <li><a href="../login">Sair</a></li>
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -44,10 +44,12 @@
                     <div class="nav-canvas">
                         <div class="nav-sm nav nav-stacked"></div>
                         <ul class="nav nav-pills nav-stacked main-menu">
+                            
                             <div class="imgcontainer">
-                                <img src="{{ user.aluno.imagem2.thumbnail.url }}" style="width:165px;height:190px" alt="Avatar" class="avatar">
+                                <img src="{{ coordenador.imagem.thumbnail.url }}" style="width:165px;height:190px" alt="" class="avatar">
                             </div>
-                            <li class="nav-header">Menu</li>
+                            
+                            <li class="nav-header">{{ user }}</li>
                             <li><a class="ajax-link" href=""><i class="glyphicon glyphicon-home"></i><span>
                                         Inicio</span></a>
                             </li>
@@ -113,7 +115,7 @@
                                 <div class="box col-md-12">
                                     <div class="box-inner">
                                         <div class="box-header well" data-original-title="">
-                                            <h2><i class="glyphicon glyphicon-user"></i>{{ aluno }}</h2>
+                                            <h2><i class="glyphicon glyphicon-user"></i>{{ aluno }} teste</h2>
             
                                             <div class="box-icon">
                                                 <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>

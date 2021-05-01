@@ -125,5 +125,17 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+#User admin customizada
 AUTH_USER_MODEL = 'core.MyUserAdmin'
+
+
+#Configurações de autenticação
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+
+#LOGIN_REQUERED = 'aluno'
+#LOGOUT_REQUERED = 'index'
+
+

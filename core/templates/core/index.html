@@ -61,46 +61,47 @@
                     <li><a href="#"><b>Pós e MBA</b></a></li>
                     <li><a href="#"><b>Intervenções</b></a></li>
                     <li><a href="#"><b>Eventos</b></a></li>
+
+                    <!--VERIFICA SE É UM SUPER USUARIO, SE FOR HABILITA UM LINK PARA SUPER USUARIO-->
+
+                    {% if user.is_authenticated and user.is_superuser %}
+                    <li><a class="fire navbar-brand" href="{% url 'core:coordenador' user.id %}"><b>Bem vindo {{ user.first_name }} </b></a></li>
+                    {% endif %}
+
+                    <!--VERIFICA SE NÃO É UM SUPER USUARIO, SE NÃO FOR HABILITA UM LINK PARA USUARIO COMUN-->
+
+                    {% if user.is_authenticated and not user.is_superuser %}
+                    <li><a class="fire navbar-brand" href="{% url 'core:aluno' user.id %}"><b>Bem vindo {{ user.first_name }}</b></a></li>
+                    {% endif %}
                 </ul>
+                {% if user.is_authenticated %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a  onclick="document.getElementById('id01').style.display='block'"href="#"><span class="">Login</span></a></li>
+                    <li class="navbar-brand"><a href="{% url 'logout' %}"><span class="">Logout</span></a></li>
                 </ul>
+                {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="navbar-brand"><a href="{% url 'core:login' %}"><span class="">Login</span></a></li>
+                </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
     <br>
 
-    <div id="id01" class=" container modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <form class="modal-content animate" action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            <div class="imgcontainer">
-                <img src="{% static 'img/av2.png'%}" style="width:150px; height: 100px;" alt="Avatar" class="avatar">
-            </div>
-            <div class="container-fluid">
-                <label for="uname"><b>Usuario</b></label>
-                <input type="text" placeholder="Enter Username" id="username" name="username" required>
+   
 
-                <label for="psw"><b>Senha</b></label>
-                <input type="password" placeholder="Enter Password" id="password" name="password" required>
-
-                <button type="submit">Login</button>
-                <br>
-                <span class="psw">Esqueceu sua <a href="#"> senha?</a></span>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Lembrar   
-                </label>
-            </div>
-            <div>
-                <button type="submit" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            </div>
-        </form>
-    </div>
+    {% block content %} {% endblock %}
     <!---Espaço do Carrousel-->
-    <div id="myCarousel" class=" margin-top-50 carousel slide" data-ride="carousel" margin-top-50px>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- indicadores  -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
         <!-- Slides imagens do carrousel -->
-        <div class="carousel-inner" role="listbox">
+        <div class="carousel-inner">
             <div class="item active">
                 <img src="{% static 'img/touchman.jpg' %}" alt="touchman">
                 <div class="carousel-caption">
@@ -132,19 +133,20 @@
             </div>
         </div>
          <!-- Esquerda Direita -->
-        <div class="row">
-            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+         <div class="row">
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" ></span>
                 <span class="sr-only">Anterior</span>
             </a>
         </div>
         <div class="row">
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="sr-only">Proximo</span>
             </a>
         </div>
     </div>
+    <!--Fim Corrousel-->
     <div class="container text-center">
         <h3 class="_title-2">O <b>Sucesso</b> começa, quando a <b>Qualidade</b> é <b>Prioridade</b></h3><br>
         <hr>
