@@ -1,10 +1,23 @@
 from django.contrib.auth.admin import UserAdmin
-from django.contrib import admin 
+from django.contrib import admin
+from django.forms import fields 
 from .forms import UserCreationForm, UserChangeForm
 
-from .models import MyUserAdmin, Curso, Coordenador, Aluno, Professor, \
-    Disciplina, DisciplinaOfertada, Turma, AtividadeVinculada, \
-    Atividade, EntregaAtividade, Mensagem, SolicitacaoMatricula, Matricula
+from .models.my_user_admin import MyUserAdmin
+from .models.curso import Curso
+from .models.coordenador import Coordenador
+from .models.aluno import  Aluno
+from .models.professor import Professor
+from .models.disciplina import Disciplina
+from .models.disciplina_ofertada import DisciplinaOfertada
+from .models.turma import Turma
+from .models.atividade_vinculada import AtividadeVinculada
+from .models.atividade import Atividade
+from .models.entrega_atividade import EntregaAtividade
+from .models.mensagem import Mensagem
+from .models.solicitacao_matricula import SolicitacaoMatricula
+from .models.matricula import Matricula
+from .models.photo import Photo
 
 @admin.register(MyUserAdmin)
 class CustomUsuarioAdmin(UserAdmin):
@@ -221,6 +234,14 @@ class SolicitacaoMatriculaAdmin(admin.ModelAdmin):
 
     inlines = [MatriculaAdmin]
 
+
+
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Photo',               {'fields':['photo']}),
+        ('Usuario',             {'fields':['usuario']})
+    ]
 
 # @admin.register(Matricula)
 # class Matricula(admin.ModelAdmin):
