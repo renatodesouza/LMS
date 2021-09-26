@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
-from .models import MyUserAdmin, Coordenador, EntregaAtividade
+from .models.my_user_admin import MyUserAdmin
+from .models.entrega_atividade import EntregaAtividade
+from .models.coordenador import Coordenador
 
 class UserCreationForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -40,4 +42,6 @@ class EntregaAtividadeForm(forms.Form):
     class Meta:
         model = EntregaAtividade
         fields = ('titulo', 'file')
+
+
         

@@ -18,5 +18,6 @@ urlpatterns = [
     #path('login/', TemplateView.as_view(template_name='registration/login.html'), name='login'),
     path('logado/', views.my_login, name='my_login'),
     path('boletim/<int:pk>/', BoletimAluno.as_view(), name="boletim"),
-    path('upload/<int:pk>/', views.upload, name="upload"),
+    path('upload/', views.upload, name="upload"),
+    #path('photo/create/', views.photo_create, name="photo_create"),
 ]

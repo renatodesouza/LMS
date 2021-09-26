@@ -3,13 +3,26 @@ from django.views.generic import ListView, TemplateView, DetailView
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
-from core.models import Curso, DisciplinaOfertada,\
-                Aluno, Professor, Coordenador, EntregaAtividade,\
-                     SolicitacaoMatricula, MyUserAdmin, Mensagem, AtividadeVinculada
+
+from .models.my_user_admin import MyUserAdmin
+from .models.curso import Curso
+from .models.coordenador import Coordenador
+from .models.aluno import  Aluno
+from .models.professor import Professor
+from .models.disciplina import Disciplina
+from .models.disciplina_ofertada import DisciplinaOfertada
+from .models.turma import Turma
+from .models.atividade_vinculada import AtividadeVinculada
+from .models.atividade import Atividade
+from .models.entrega_atividade import EntregaAtividade
+from .models.mensagem import Mensagem
+from .models.solicitacao_matricula import SolicitacaoMatricula
+from .models.matricula import Matricula
+from .models.photo import Photo
                 
 from .forms import EntregaAtividadeForm
 
-
+from .uploads_files import handle_uploaded_file
 
 class IndexView(ListView):
     model = Curso
@@ -123,7 +136,7 @@ def upload(request):
     if request.method == "POST":
         form = EntregaAtividadeForm(request.POST, request.FILES)
         if form.is_valid():    
-            form.save()
+            handle_uploaded_file(request.FILES['file'])
             return render(request, 'core/aluno.html', {'msg':'Arquivo enviado com sucesso. '})
     else:
         form = EntregaAtividadeForm()

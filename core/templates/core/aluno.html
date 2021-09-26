@@ -1,4 +1,4 @@
-{% extends 'core/base_area.html' %}
+'{% extends 'core/base_area.html' %}
 
 {% block content_aluno_titulo %}
 <title>Area do Aluno</title>
@@ -13,6 +13,10 @@
 <div class="imgcontainer">
     <img src="{{ aluno.imagem.thumbnail.url }}" style="width:165px;height:190px" alt={{aluno_list.first_name}} class="avatar">
 </div>
+{% endblock %}
+
+{% block content_botao_foto-aluno %}
+<button type="submit" class="btn btn-default"><a href="">Change foto</a></button>
 {% endblock %}
 
 {% block content_lista_menu_esquerdo-aluno %}
@@ -97,7 +101,7 @@
                                 <td>{{ atividade.dt_inicio }}</td>
                                 <td>{{ atividade.dt_fim }}</td>
                                 <td>{{ atividade.status }}</td>
-                                <td>{{ atividade.atividade.nota }}</td>
+                                <td>{{ atividade.professor }}</td>
                                 {% if atividade.status == 'ABERTA' %}
                                 <td>
                                     <button type="button" class="btn btn-success btn-sm" 
@@ -135,7 +139,7 @@
               <h4 class="modal-title">Entrega de Atividades</h4>
             </div>
             <div class="modal-body">
-              <form action="{ url 'core:upload' 3 }" method="post">
+              <form action="{ url 'core:upload' }" method="POST">
                   {% csrf_token %}
                   <label for="">Atividade</label>
                   <input type="text" id="titulo" name="titulo"><br>
